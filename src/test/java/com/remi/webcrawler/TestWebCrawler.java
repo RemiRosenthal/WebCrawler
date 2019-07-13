@@ -3,29 +3,32 @@ package com.remi.webcrawler;
 
 import org.junit.Test;
 
-import java.net.MalformedURLException;
-
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 public class TestWebCrawler {
 
     @Test
     public void givenValidUrlShouldCrawl() {
-        final WebCrawler crawler = new WebCrawler(5);
-        crawler.retrievePageUrls("https://bbc.co.uk/", true);
+        final WebCrawler crawler = new WebCrawler(5, true);
+        crawler.crawl("https://bbc.co.uk/");
     }
 
     @Test
     public void givenFileUrlShouldIgnore() {
-        final WebCrawler crawler = new WebCrawler(1);
-        crawler.retrievePageUrls("https://download.mozilla.org/?product=firefox-stub&os=win64&lang=en-US", true);
+        final WebCrawler crawler = new WebCrawler(1, true);
+        crawler.crawlPage("https://download.mozilla.org/?product=firefox-stub&os=win64&lang=en-US");
     }
 
     @Test
     public void givenBadProtocolShouldIgnore() {
-        final WebCrawler crawler = new WebCrawler(1);
-        crawler.retrievePageUrls("mailto:remirosenthal@protonmail.com", true);
+        final WebCrawler crawler = new WebCrawler(1, true);
+        crawler.crawlPage("mailto:remirosenthal@protonmail.com");
+    }
+
+    @Test
+    public void givenBadResponseShouldCatch() {
+        final WebCrawler crawler = new WebCrawler(1, true);
+        crawler.crawlPage("https://www.bbc.co.uk/invalidpage");
     }
 
     @Test

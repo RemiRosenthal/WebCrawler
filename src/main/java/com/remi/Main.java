@@ -32,8 +32,8 @@ public class Main {
         }
         System.out.println("Page limit = " + pageLimit);
 
-        final WebCrawler crawler = new WebCrawler(pageLimit);
-        crawler.retrievePageUrls(inputUrl, true);
+        final WebCrawler crawler = new WebCrawler(pageLimit, true);
+        crawler.crawl(inputUrl);
 
         System.out.println("Finished crawling!");
         System.out.println();
